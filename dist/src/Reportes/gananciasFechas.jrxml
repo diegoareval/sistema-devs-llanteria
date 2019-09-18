@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b239fc47-d20e-427d-afb7-3acf6523b9c9">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PtotalGasto" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ventas" class="java.lang.String"/>
+	<parameter name="ganancia" class="java.lang.String"/>
+	<parameter name="fecha2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     gastos.`idgasto` AS gastos_idgasto,
+     gastos.`tipo_gasto` AS gastos_tipo_gasto,
+     gastos.`total` AS gastos_total,
+     gastos.`fecha` AS gastos_fecha
+FROM
+     `gastos` gastos where fecha between $P{fecha} and $P{fecha2} order by fecha desc]]>
+	</queryString>
+	<field name="gastos_idgasto" class="java.lang.Integer"/>
+	<field name="gastos_tipo_gasto" class="java.lang.String"/>
+	<field name="gastos_total" class="java.lang.Double"/>
+	<field name="gastos_fecha" class="java.sql.Date"/>
+	<variable name="gastos_total_1" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{gastos_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="53">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-34" width="595" height="83" backcolor="#006699" uuid="991934bc-564a-4099-9d3b-bc74d68b02bc"/>
+				<staticText>
+					<reportElement x="20" y="20" width="338" height="43" forecolor="#FFFFFF" uuid="abe80d9b-0a63-4fe1-bc5d-ba16833504bf"/>
+					<textElement>
+						<font size="20" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Reporte de ganancia por fechas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="418" y="46" width="157" height="37" forecolor="#FFFFFF" uuid="10028a79-9ba6-4fd6-9b26-e9b76d8acf7b"/>
+					<textElement>
+						<font size="16" isBold="true" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Multillantas Amayo]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="147">
+			<staticText>
+				<reportElement x="53" y="42" width="98" height="20" uuid="09c67200-87d8-48a1-b7e6-a35ecf06443e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="188" y="42" width="288" height="20" uuid="564cf9bd-af70-49f8-ad86-b5cef02d0e26"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="105" width="288" height="20" uuid="7109c27b-9ab8-45dc-9015-377a49baa884"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ventas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="54" y="105" width="112" height="20" uuid="3c84d133-5a6a-4bdb-8b45-9fdeb4848804"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Ventas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="188" y="75" width="288" height="20" uuid="9fbacccf-34d6-46b7-aabb-3f346a9e4615"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="53" y="75" width="98" height="20" uuid="28dfbf3b-edcc-47f4-8544-674c90249622"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[hasta fecha: ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="d9237732-aaff-4327-be2d-7306e2224dec"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="226" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5b8b735a-fc8a-423e-981e-df2dea286a4b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de gasto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="227" y="0" width="171" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3266dfcf-080c-44e3-af98-da1c153b7118"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="398" y="0" width="157" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f06967c0-6b86-418f-a51a-3770bed73955"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Feha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="53" y="0" width="153" height="15" uuid="7fbd3c75-8f8b-46b1-a428-234616c52834"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gastos_tipo_gasto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="227" y="0" width="172" height="15" uuid="28df8dbf-9ca6-46a8-98b3-e4460949f38c"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gastos_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="416" y="0" width="139" height="15" uuid="60243c71-2202-4246-80a4-ad7ed1476915"/>
+				<textFieldExpression><![CDATA[$F{gastos_fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="145">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="132" width="515" height="13" backcolor="#E6E6E6" uuid="4121130e-7af5-4ae3-a183-189fe28ba983"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="132" width="40" height="13" backcolor="#E6E6E6" uuid="b7cece28-c2e6-40ce-adb0-c2a72e07e566"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="132" width="100" height="13" uuid="e57fed60-3935-4b2f-9d73-0fb510d08459"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="166" y="30" width="141" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f5ba46f1-a98a-45ff-96f0-e08a79ef8b1c"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PtotalGasto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="54" y="30" width="112" height="20" uuid="3a5280c5-4891-4b31-8783-9702afd46663"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de gastos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="82" width="112" height="20" uuid="3686a9f4-be4a-453d-9fa9-3009c21cf03d"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ganancias:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="82" width="141" height="20" uuid="636d3eb8-aec6-4d70-816f-a4af2f23f104"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ganancia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

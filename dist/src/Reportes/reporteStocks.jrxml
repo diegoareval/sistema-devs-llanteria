@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e64443f-9d92-41e6-9f21-ff9606b8680a">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="4422497b-f5d2-4e26-b5bd-f79ca8a6729f"/>
+	<queryString>
+		<![CDATA[SELECT
+     productos.`nombre` AS productos_nombre,
+     productos.`medida` AS productos_medida,
+     productos.`stock` AS productos_stock,
+     productos.`inventario` AS productos_inventario,
+     marca.`marca` AS marca_marca,
+     proveedor.`nombre_empresa` AS proveedor_nombre_empresa,
+     calidad.`calidad` AS calidad_calidad,
+     categorias.`Nom_categoria` AS categorias_Nom_categoria,
+     productos.`idproducto` AS productos_idproducto
+FROM
+     `productos` productos INNER JOIN `marca` marca ON productos.`idmarca` = marca.`idmarca`
+     INNER JOIN `proveedor` proveedor ON productos.`idproveedor` = proveedor.`idproveedor`
+     INNER JOIN `categorias` categorias ON productos.`idcategoria` = categorias.`idcategoria`
+     INNER JOIN `calidad` calidad ON productos.`idcalidad` = calidad.`idcalidad`
+WHERE
+     productos.inventario <= productos.stock and productos.`tipoRegistro`='producto' order by proveedor.`nombre_empresa` asc]]>
+	</queryString>
+	<field name="productos_nombre" class="java.lang.String"/>
+	<field name="productos_medida" class="java.lang.String"/>
+	<field name="productos_stock" class="java.lang.Integer"/>
+	<field name="productos_inventario" class="java.lang.Integer"/>
+	<field name="marca_marca" class="java.lang.String"/>
+	<field name="proveedor_nombre_empresa" class="java.lang.String"/>
+	<field name="calidad_calidad" class="java.lang.String"/>
+	<field name="categorias_Nom_categoria" class="java.lang.String"/>
+	<field name="productos_idproducto" class="java.lang.Integer"/>
+	<group name="proveedor_nombre_empresa">
+		<groupExpression><![CDATA[$F{proveedor_nombre_empresa}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="7" width="802" height="24" forecolor="#B89F7D" backcolor="#70A9C6" uuid="25c87526-5f15-4f70-bfb6-58801a98ca47"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="29" y="1" width="384" height="23" forecolor="#FFFFFF" uuid="c8ff4a3d-6a04-4425-9257-b851743e3d08"/>
+						<textElement>
+							<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Proveedor:  "+$F{proveedor_nombre_empresa}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="18" y="86" width="302" height="29" uuid="358d1944-ffd0-432f-bb6f-abf1d022f393"/>
+				<textElement textAlignment="Left">
+					<font size="22" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Productos con límite de Stock]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="936a89ac-737e-461f-8cce-02c51c90c550"/>
+				<staticText>
+					<reportElement style="Title" x="38" y="0" width="771" height="65" uuid="3ac8a723-20a0-448c-9817-8a68657109e4"/>
+					<textElement textAlignment="Left">
+						<font size="50" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Multillantas Amayo]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<frame>
+				<reportElement x="56" y="0" width="746" height="14" uuid="7fa39306-8be7-45a6-842f-7d2c956ddf81"/>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="0" y="0" width="71" height="14" forecolor="#000000" uuid="dd197fb7-0b18-4a95-bdb2-13df2578ede7"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="112" y="0" width="71" height="14" forecolor="#000000" uuid="a52893cf-c8c4-4587-8e22-ffba42b155c3"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Medida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="196" y="0" width="49" height="14" forecolor="#000000" uuid="a1acf112-8586-42cd-8a8d-1e751bafe791"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Stocks]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="258" y="0" width="71" height="14" forecolor="#000000" uuid="b7772cf4-187c-431b-9261-0aacd6b0f8d9"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Existencias]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="342" y="0" width="92" height="14" forecolor="#000000" uuid="8cf14dda-12f2-47ab-988c-0c2acbde5e5a"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[marca]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="447" y="0" width="71" height="14" forecolor="#000000" uuid="80a86241-6a6f-49f9-993f-e87fffb0eb04"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Calidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="523" y="0" width="71" height="14" forecolor="#000000" uuid="fe12badf-290d-43cd-8b1e-7f8e4c2a91a1"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Categoria]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="673" y="0" width="55" height="14" forecolor="#000000" uuid="cb20e7e2-73c9-4336-968d-09771fe64976"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[Código]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="801" height="14" uuid="4063300f-c8a0-4c9e-827d-e6968cee73b1"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="320" y="0" width="59" height="14" uuid="ad4a3d39-b801-4747-b81c-8c419bf04a7c"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{productos_inventario}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="388" y="0" width="108" height="14" uuid="4f9ab6c3-df6b-45e2-8e93-91a4a68d5546"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{marca_marca}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="503" y="0" width="82" height="14" uuid="75b833ff-fb8a-42ee-aad0-ed47298ed1ba"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{calidad_calidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="585" y="0" width="141" height="14" uuid="9296d02f-cc2d-414c-a51a-ba701897ddbd"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{categorias_Nom_categoria}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="729" y="0" width="56" height="14" uuid="59330aa4-d1b0-4c4f-9c9b-1576216743ff"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{productos_idproducto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="164" y="0" width="81" height="14" uuid="ce3020b6-24a8-4813-abdd-50c71d94f2ed"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{productos_medida}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="245" y="0" width="62" height="14" uuid="9ebba078-9fc0-4a29-91b0-5269c4ee209c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productos_stock}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="29" y="0" width="135" height="14" uuid="6d8c3b61-b165-4594-b611-5d693faffd22"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productos_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b089ad2b-2210-4b4d-8c23-aeae355bba8f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="0fd6bf9f-a10e-470e-8d79-1a67d1eb7658"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="ea3d87f2-051d-4f37-899e-ef99e0f3321c"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="673" y="0" width="80" height="16" forecolor="#FFFFFF" uuid="18e7407d-6c08-4de5-9afe-22244016d427"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="16" forecolor="#FFFFFF" uuid="32faa465-95fb-4337-aeff-9b0da7ecd28d"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
